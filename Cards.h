@@ -1,5 +1,8 @@
 #pragma once
 
+/*
+file: Cards.h
+*/
 enum SUIT {
 	CLUB,
 	DIAMOND,
@@ -32,7 +35,7 @@ struct CARD {
 
 void swapCard(CARD &card1, CARD &card2);
 
-void shuffleDeck(const std::array<CARD, 52> &cardArray);
+void shuffleDeck(std::array<CARD, 52> &cardArray);
 
 void printCard(const CARD &card);
 

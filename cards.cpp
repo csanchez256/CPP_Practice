@@ -8,9 +8,13 @@
 
 
 #include "Cards.h"
+/*
+file: cards.cpp
+*/
 
 std::array <CARD, 52> cardArray;
 
+// not actually swapping the array elements in memory
 void swapCard(CARD &card1, CARD &card2) {
 	CARD temp = card1;
 	card1 = card2;
@@ -18,17 +22,14 @@ void swapCard(CARD &card1, CARD &card2) {
 }
 
 
-void shuffleDeck(const std::array<CARD, 52> &cardArray) {
-	CARD card1, card2;
+void shuffleDeck(std::array<CARD, 52> &cardArray) {
+	srand(time(NULL));
+
 	for (int i = 0; i < 52; ++i)
 	{
-		srand((unsigned)time(0));      // needs <ctime>
 		int randm;
-		randm = (rand() % 51);         //random number between 0 and 51
-
-		card1 = cardArray[i];
-		card2 = cardArray[randm];
-		swapCard(card1, card2);
+		randm = (rand() % 52);         //random number between 0 and 51
+		swapCard(cardArray[i], cardArray[randm]);
 	}
 }
 
@@ -57,13 +58,16 @@ void printCard(const CARD &card) {
 	case HEART: std::cout << 'H'; break;
 	case SPADE: std::cout << 'S'; break;
 	}
+	//std::cout << " ";
 	std::cout << '\n';
 }
 
 void printDeck(const std::array<CARD, 52> &cardArray) {
+	int counter = 1;
 	for (const auto &c : cardArray) {
+		std::cout << counter << " .) ";
 		printCard(c);
+		++counter;
 	}
 	std::cout << '\n';
 }
-
