@@ -65,9 +65,43 @@ void printCard(const CARD &card) {
 void printDeck(const std::array<CARD, 52> &cardArray) {
 	int counter = 1;
 	for (const auto &c : cardArray) {
-		std::cout << counter << " .) ";
+		//std::cout << counter << " .) ";
 		printCard(c);
 		++counter;
 	}
 	std::cout << '\n';
+}
+
+
+int getCardValue(const CARD &card) {
+	switch (card.rank) {
+		case TWO:	 return 2;
+		case THREE:	 return 3;
+		case FOUR:   return 4;
+		case FIVE:   return 5;
+		case SIX:    return 6;
+		case SEVEN:  return 7;
+		case EIGHT:  return 8;
+		case NINE:   return 9;
+		case TEN:    return 10;
+		case JACK:   return 10;
+		case QUEEN:  return 10;
+		case KING:   return 10;
+		case ACE:    return 11;
+	}
+		std::cout << '\n';
+}
+
+void playBlackJack(std::array<CARD, 52> &cardArray) {
+	CARD *cardPtr = &cardArray[0];
+	int playerScore, dealerScore;
+	getCardValue(*cardPtr++);
+
+	std::cout << "Play Black Jack? y/n " << std::endl;
+	char answer;
+	std::cin >> answer;
+	if (answer == 'y') {
+
+	}
+
 }

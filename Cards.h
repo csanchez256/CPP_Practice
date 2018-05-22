@@ -40,3 +40,7 @@ void shuffleDeck(std::array<CARD, 52> &cardArray);
 void printCard(const CARD &card);
 
 void printDeck(const std::array<CARD, 52> &cardArray);
+
+int getCardValue(const CARD &card);
+
+void playBlackJack(std::array<CARD, 52> &cardArray);
