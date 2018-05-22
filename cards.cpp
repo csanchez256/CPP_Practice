@@ -93,18 +93,37 @@ int getCardValue(const CARD &card) {
 }
 
 void playBlackJack(std::array<CARD, 52> &cardArray) {
-	CARD *cardPtr = &cardArray[0];
-	int playerScore, dealerScore;
-	getCardValue(*cardPtr++);
-
-
-
 	std::cout << "Play Black Jack? y/n " << std::endl;
 	char answer;
 	std::cin >> answer;
 	if (answer == 'y') {
+		dealCards(cardArray);
+	}
+	if (answer == 'n') std::cout << " ok thanks " << std::endl;
+}
+
+void dealCards(std::array<CARD, 52> &cardArray) {
+	CARD *cardPtr = &cardArray[0];
+	int playerScore = 0;
+	int dealerScore = 0;
+	bool hit = true;
+
+	while (hit) {
+		playerScore += getCardValue(*cardPtr++);
+		playerScore += getCardValue(*cardPtr++);
+
+		dealerScore += getCardValue(*cardPtr++);
+
 		std::cout << " your hand " << getCardValue(*cardPtr++) << std::endl;
 		std::cout << "dealer's hand " << getCardValue(*cardPtr++) << std::endl;
-	}
 
+		if (playerScore > 21) std::cout << " player bust!" << std::endl; return;
+		if (dealerScore > 21) std::cout << " dealer bust!" << std::endl; return;
+
+		char answer;
+		std::cout << "Hit agian? " << std::endl;
+		std::cin >> answer;
+		if (answer == 'y') hit = true;
+		else return;
+	}
 }
