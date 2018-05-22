@@ -97,11 +97,14 @@ void playBlackJack(std::array<CARD, 52> &cardArray) {
 	int playerScore, dealerScore;
 	getCardValue(*cardPtr++);
 
+
+
 	std::cout << "Play Black Jack? y/n " << std::endl;
 	char answer;
 	std::cin >> answer;
 	if (answer == 'y') {
-
+		std::cout << " your hand " << getCardValue(*cardPtr++) << std::endl;
+		std::cout << "dealer's hand " << getCardValue(*cardPtr++) << std::endl;
 	}
 
 }
