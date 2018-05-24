@@ -114,11 +114,11 @@ void dealCards(std::array<CARD, 52> &cardArray) {
 
 		dealerScore += getCardValue(*cardPtr++);
 
-		std::cout << " your hand " << getCardValue(*cardPtr++) << std::endl;
-		std::cout << "dealer's hand " << getCardValue(*cardPtr++) << std::endl;
+		std::cout << " your hand " << playerScore << std::endl;
+		std::cout << "dealer's hand " << dealerScore << std::endl;
 
-		if (playerScore > 21) std::cout << " player bust!" << std::endl; return;
-		if (dealerScore > 21) std::cout << " dealer bust!" << std::endl; return;
+		if (playerScore > 21) { std::cout << " player bust! You lose!" << std::endl; return; }
+		if (dealerScore > 21) { std::cout << " dealer bust! You win!" << std::endl; return; }
 
 		char answer;
 		std::cout << "Hit agian? " << std::endl;
@@ -126,4 +126,11 @@ void dealCards(std::array<CARD, 52> &cardArray) {
 		if (answer == 'y') hit = true;
 		else return;
 	}
+}
+
+std::string determineWinner(int playerScore, int dealerScore) {
+	if (playerScore > dealerScore) return " player wins";
+	else if (playerScore < dealerScore) return "dealer wins ";
+	else if (playerScore == dealerScore) return "split";
+	return " ";
 }
