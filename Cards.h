@@ -48,3 +48,5 @@ void playBlackJack(std::array<CARD, 52> &cardArray);
 void dealCards(std::array<CARD, 52> &cardArray);
 
 std::string determineWinner(int, int);
+
+void printScore(int playerScore, int dealerScore);
