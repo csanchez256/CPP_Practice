@@ -45,7 +45,7 @@ int getCardValue(const CARD &card);
 
 void playBlackJack(std::array<CARD, 52> &cardArray);
 
-void dealCards(std::array<CARD, 52> &cardArray);
+int dealCards(std::array<CARD, 52> &cardArray, int);
 
 std::string determineWinner(int, int);
 

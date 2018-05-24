@@ -26,7 +26,7 @@ void shuffleDeck(std::array<CARD, 52> &cardArray) {
 	for (int i = 0; i < 52; ++i)
 	{
 		int randm;
-		randm = (rand() % 52);                    //random number between 0 and 51
+		randm = (rand() % 51);                    //random number between 0 and 51
 		swapCard(cardArray[i], cardArray[randm]);
 	}
 }
@@ -87,54 +87,65 @@ int getCardValue(const CARD &card) {
 }
 
 void playBlackJack(std::array<CARD, 52> &cardArray) {
+	int ptr_index = 0;
 	while (1) {
 		std::cout << "Play a round of Black Jack? y/n " << std::endl;
 		char answer;
 		std::cin >> answer;
-		if (answer == 'y') dealCards(cardArray);
+		if (answer == 'y') ptr_index = dealCards(cardArray,ptr_index);
 		if (answer == 'n') { std::cout << "Good bye!" << std::endl; return; }
 	}
 }
 
-void dealCards(std::array<CARD, 52> &cardArray) {
-	CARD *cardPtr = &cardArray[0];
+int dealCards(std::array<CARD, 52> &cardArray, int ptr_index) {
+	CARD *cardPtr = &cardArray[ptr_index];
 	int playerScore = 0;
 	int dealerScore = 0;
 	bool hit = true;
 
 	while (hit) {
 		playerScore += getCardValue(*cardPtr++);
+		++ptr_index;
 		playerScore += getCardValue(*cardPtr++);
+		++ptr_index;
 
 		dealerScore += getCardValue(*cardPtr++);
+		++ptr_index;
 
 		printScore(playerScore, dealerScore);
 
-		if (playerScore > 21) { std::cout << "Player bust! You lose!" << std::endl; return; }
-		if (dealerScore > 21) { std::cout << "Dealer bust! You win!"  << std::endl; return; }
+		if (playerScore > 21) { 
+			std::cout << "**Player bust! You lose!" << std::endl; return ptr_index; 
+		}
+		if (dealerScore > 21) { 
+			std::cout << "**Dealer bust! You win!"  << std::endl; return ptr_index;
+		}
 
 		char answer;
 		std::cout << "Hit agian? y/n" << std::endl;
 		std::cin >> answer;
 		if (answer == 'y') hit = true;
 		else if (answer == 'n') {
-			while (dealerScore <= 16) { dealerScore += getCardValue(*cardPtr++); }
+			while (dealerScore <= 16) { 
+				dealerScore += getCardValue(*cardPtr++); 
+				++ptr_index;
+			}
 			std::cout << determineWinner(playerScore, dealerScore) << std::endl;
 			printScore(playerScore, dealerScore);
-			return;
+			return ptr_index;
 		}
-		else return;
+		else return ptr_index;
 	}
 }
 
 std::string determineWinner(int playerScore, int dealerScore) {
-	if      (playerScore > dealerScore)  return "You win!";
-	else if (playerScore < dealerScore)  return "Dealer wins ";
-	else if (playerScore == dealerScore) return "Split";
+	if      (playerScore > dealerScore)  return "**You win!";
+	else if (playerScore < dealerScore)  return "**Dealer wins ";
+	else if (playerScore == dealerScore) return "**Split";
 	return " ";
 }
 
 void printScore(int playerScore, int dealerScore) {
-	std::cout << "your hand " << playerScore << std::endl;
-	std::cout << "dealer's hand " << dealerScore << std::endl;
+	std::cout << "<your hand> " << playerScore << std::endl;
+	std::cout << "<dealer's hand> " << dealerScore << std::endl;
 }
