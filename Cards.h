@@ -47,6 +47,8 @@ void playBlackJack(std::array<CARD, 52> &cardArray);
 
 int dealCards(std::array<CARD, 52> &cardArray, int);
 
+bool checkBustedHand(int, int);
+
 std::string determineWinner(int, int);
 
 void printScore(int, int);

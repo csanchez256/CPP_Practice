@@ -114,15 +114,10 @@ int dealCards(std::array<CARD, 52> &cardArray, int ptr_index) {
 
 		printScore(playerScore, dealerScore);
 
-		if (playerScore > 21) { 
-			std::cout << "**Player bust! You lose!" << std::endl; return ptr_index; 
-		}
-		if (dealerScore > 21) { 
-			std::cout << "**Dealer bust! You win!"  << std::endl; return ptr_index;
-		}
+		if(checkBustedHand(playerScore, dealerScore) == true) return ptr_index;
 
 		char answer;
-		std::cout << "Hit agian? y/n" << std::endl;
+		std::cout << "Do you want to hit? y/n" << std::endl;
 		std::cin >> answer;
 		if (answer == 'y') hit = true;
 		else if (answer == 'n') {
@@ -130,14 +125,29 @@ int dealCards(std::array<CARD, 52> &cardArray, int ptr_index) {
 				dealerScore += getCardValue(*cardPtr++); 
 				++ptr_index;
 			}
-			std::cout << determineWinner(playerScore, dealerScore) << std::endl;
-			printScore(playerScore, dealerScore);
-			return ptr_index;
+
+			if (checkBustedHand(playerScore, dealerScore) == true) return ptr_index;
+
+			else {
+				std::cout << determineWinner(playerScore, dealerScore) << std::endl;
+				printScore(playerScore, dealerScore);
+				return ptr_index;
+			}
 		}
 		else return ptr_index;
 	}
 }
 
+bool checkBustedHand(int playerScore, int dealerScore) {
+	if (playerScore > 21) {
+		std::cout << "**Player bust! You lose!" << std::endl;
+		return true;
+	}
+	if (dealerScore > 21) {
+		std::cout << "**Dealer bust! You win!" << std::endl;
+		return true;
+	}
+}
 std::string determineWinner(int playerScore, int dealerScore) {
 	if      (playerScore > dealerScore)  return "**You win!";
 	else if (playerScore < dealerScore)  return "**Dealer wins ";
